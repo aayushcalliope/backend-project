@@ -1,12 +1,16 @@
-// require("dotenv").config({path:`./env`});
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({
+  path: "./.env",
+});
 import { app } from "./app.js";
 import connectDB from "./db/index.js";
-
+// console.log("ENV CHECK:", {
+//   CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+//   CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+// });
 connectDB()
   .then(() => {
-    app.on("error", () => {
+    app.on("error", (error) => {
       console.log("Error:", error);
       throw error;
     });
@@ -17,6 +21,7 @@ connectDB()
   .catch((err) => {
     console.log("MONGODB connection FAILED!!", err);
   });
+// require("dotenv").config({path:`./env`});
 
 /*
 import express from "express";
